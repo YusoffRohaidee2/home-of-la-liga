@@ -180,6 +180,8 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .match-header h3 {
@@ -187,6 +189,28 @@
             display: flex;
             align-items: center;
             gap: 10px;
+        }
+
+        .channel-selector-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .channel-select {
+            background-color: var(--card-inner-bg);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .channel-select:focus {
+            border-color: var(--cyan-accent);
         }
 
         .match-status-tag {
@@ -478,6 +502,11 @@
             .tab-btn span.text {
                 display: none;
             }
+
+            .match-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
         }
     </style>
 </head>
@@ -521,8 +550,22 @@
         <div id="live" class="tab-content active">
             <div class="live-panel">
                 <div class="match-header">
-                    <h3><i class="fa-solid fa-tower-broadcast" style="color: var(--primary-accent);"></i> DAZN LaLiga Channel</h3>
-                    <span class="match-status-tag">Live Broadcast</span>
+                    <h3 id="channel-title"><i class="fa-solid fa-tower-broadcast" style="color: var(--primary-accent);"></i> DAZN LaLiga Channel</h3>
+                    
+                    <div class="channel-selector-container">
+                        <label for="channelSelect"><i class="fa-solid fa-tv"></i> Channel:</label>
+                        <select id="channelSelect" class="channel-select" onchange="switchChannel(this.value)">
+                            <option value="https://bold-sky-a86c.yusoff-rohaidee.workers.dev/?url=https://1nyaler.streamhostingcdn.top/stream/35/index.m3u8">DAZN LaLiga Channel</option>
+                            <option value="https://bold-sky-a86c.yusoff-rohaidee.workers.dev/?url=https://7nyaler.streamhostingcdn.top/stream/35/index.m3u8">La Liga Hypermotion</option>
+                            <option value="https://bold-sky-a86c.yusoff-rohaidee.workers.dev/?url=https://1nyaler.streamhostingcdn.top/stream/47/index.m3u8">Premier Sports 1</option>
+                            <option value="https://bold-sky-a86c.yusoff-rohaidee.workers.dev/?url=https://1nyaler.streamhostingcdn.top/stream/5/index.m3u8">Premier Sports 2</option>
+                            <option value="https://bold-sky-a86c.yusoff-rohaidee.workers.dev/?url=https://1nyaler.streamhostingcdn.top/stream/3/index.m3u8">ESPN Deportes</option>
+                            <option value="https://bold-sky-a86c.yusoff-rohaidee.workers.dev/?url=https://7nyaler.streamhostingcdn.top/stream/47/index.m3u8">Premier Sports 1 (Server 2)</option>
+                            <option value="https://bold-sky-a86c.yusoff-rohaidee.workers.dev/?url=https://7nyaler.streamhostingcdn.top/stream/5/index.m3u8">Premier Sports 2 (Server 2)</option>
+                            <option value="https://bold-sky-a86c.yusoff-rohaidee.workers.dev/?url=https://7nyaler.streamhostingcdn.top/stream/3/index.m3u8">ESPN Deportes (Server 2)</option>
+                        </select>
+                        <span class="match-status-tag">Live Broadcast</span>
+                    </div>
                 </div>
                 
                 <div class="video-wrapper">
@@ -1165,13 +1208,29 @@
             evt.currentTarget.classList.add("active");
         }
 
-        // Initialize Video.js
+        // Initialize Video.js Player
         const player = videojs('laliga-player', {
             autoplay: false,
             controls: true,
             responsive: true,
             fluid: false
         });
+
+        // Channel Switch Function
+        function switchChannel(streamUrl) {
+            const selectElem = document.getElementById('channelSelect');
+            const selectedText = selectElem.options[selectElem.selectedIndex].text;
+            
+            // Update Title
+            document.getElementById('channel-title').innerHTML = `<i class="fa-solid fa-tower-broadcast" style="color: var(--primary-accent);"></i> ${selectedText}`;
+            
+            // Change Video Source
+            player.src({
+                src: streamUrl,
+                type: 'application/x-mpegURL'
+            });
+            player.play();
+        }
     </script>
 
 </body>
