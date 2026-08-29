@@ -550,20 +550,21 @@
         <div id="live" class="tab-content active">
             <div class="live-panel">
                 <div class="match-header">
-                    <h3 id="channel-title"><i class="fa-solid fa-tower-broadcast" style="color: var(--primary-accent);"></i> beIN Sports 2 Malaysia</h3>
+                    <h3 id="channel-title"><i class="fa-solid fa-tower-broadcast" style="color: var(--primary-accent);"></i> Pick your channels!</h3>
                     
-                    <div class="channel-selector-container">
-                        <label for="channelSelect"><i class="fa-solid fa-tv"></i> Channel:</label>
-                        <select id="channelSelect" class="channel-select" onchange="switchChannel(this.value)">
-                            <option value="https://flat-butterfly-3ef0.yusoffrohaidee1.workers.dev/?url=https://1nyaler.streamhostingcdn.top/stream/47/index.m3u8">Premier Sports 1</option>
-                            <option value="https://flat-butterfly-3ef0.yusoffrohaidee1.workers.dev/?url=https://1nyaler.streamhostingcdn.top/stream/5/index.m3u8">Premier Sports 2</option>
-                            <option value="https://flat-butterfly-3ef0.yusoffrohaidee1.workers.dev/?url=https://1nyaler.streamhostingcdn.top/stream/3/index.m3u8">ESPN Deportes</option>
-                            <option value="https://flat-butterfly-3ef0.yusoffrohaidee1.workers.dev/?url=https://1nyaler.streamhostingcdn.top/stream/35/index.m3u8">DAZN La Liga</option>
-                            <option value="https://flat-butterfly-3ef0.yusoffrohaidee1.workers.dev/?url=https://7nyaler.streamhostingcdn.top/stream/47/index.m3u8">Premier Sports 1 (Server 2)</option>
-                            <option value="https://flat-butterfly-3ef0.yusoffrohaidee1.workers.dev/?url=https://7nyaler.streamhostingcdn.top/stream/5/index.m3u8">Premier Sports 2 (Server 2)</option>
-                            <option value="https://flat-butterfly-3ef0.yusoffrohaidee1.workers.dev/?url=https://7nyaler.streamhostingcdn.top/stream/3/index.m3u8">ESPN Deportes (Server 2)</option>
-                            <option value="https://flat-butterfly-3ef0.yusoffrohaidee1.workers.dev/?url=https://7nyaler.streamhostingcdn.top/stream/35/index.m3u8">DAZN La Liga (Server 2)</option>
-                        </select>
+<div class="channel-selector-container">
+    <label for="channelSelect"><i class="fa-solid fa-tv"></i> Channel:</label>
+    <select id="channelSelect" class="channel-select" onchange="switchChannel(this.value)">
+        <!-- Server 1 -->
+        <option value="https://flat-butterfly-3ef0.yusoffrohaidee1.workers.dev/?url=https://183.bozztv.com/giatv/giatv-fake/beinsports1my/chunks.m3u8">beIN Sports 1 MY</option>
+        <option value="https://flat-butterfly-3ef0.yusoffrohaidee1.workers.dev/?url=https://183.bozztv.com/giatv/giatv-fake/beinsports2my/chunks.m3u8">beIN Sports 2 MY</option>
+        <option value="https://flat-butterfly-3ef0.yusoffrohaidee1.workers.dev/?url=https://183.bozztv.com/giatv/giatv-fake/beinsports3my/chunks.m3u8">beIN Sports 3 MY</option>
+        <!-- Server 2 -->
+        <option value="https://183.bozztv.com/giatv/giatv-fake/beinsports1my/chunks.m3u8">beIN Sports 1 MY (Server 2)</option>
+        <option value="https://183.bozztv.com/giatv/giatv-fake/beinsports2my/chunks.m3u8">beIN Sports 2 MY (Server 2)</option>
+        <option value="https://183.bozztv.com/giatv/giatv-fake/beinsports3my/chunks.m3u8">beIN Sports 3 MY (Server 2)</option>
+    </select>
+</div>
                         <span class="match-status-tag">Live Broadcast</span>
                     </div>
                 </div>
