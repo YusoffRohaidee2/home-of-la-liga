@@ -3,1616 +3,494 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home of LaLiga | Sports Hub Official</title>
+    <title>LaLiga Live Stream Player</title>
 
-    <link rel="icon" href="https://assets.laliga.com/assets/logos/LL_RGB_h_color/LL_RGB_h_color.png" type="image/png">
+        <link rel="icon" href="https://assets.laliga.com/assets/logos/LL_RGB_h_color/LL_RGB_h_color.png" type="image/png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Google Fonts & FontAwesome -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <!-- Video.js Styles -->
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#090d16',
+                        darkCard: '#111827',
+                        darkSlate: '#1e293b',
+                        laligaRed: '#ff004b',
+                        laligaRedHover: '#d9003f',
+                        cyanHighlight: '#00f0ff',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Teko', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'glow-red': '0 0 20px rgba(255, 0, 75, 0.4)',
+                        'glow-cyan': '0 0 20px rgba(0, 240, 255, 0.3)',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Video.js CSS and JS -->
     <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
-    <link href="https://unpkg.com/@videojs/themes@1.0.1/dist/city/index.css" rel="stylesheet" />
-
+    <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
+    
     <style>
-        :root {
-            --bg-color: #0b0e14;
-            --card-bg: #121824;
-            --card-inner-bg: #0a0e17;
-            --primary-accent: #ee2f35;
-            --cyan-accent: #00f2ff;
-            --green-accent: #00e676;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --border-color: rgba(255, 255, 255, 0.08);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
-
         body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.6;
-            min-height: 100vh;
-            background-image: radial-gradient(circle at 50% 0%, rgba(238, 47, 53, 0.12), transparent 50%);
+            background-color: #090d16;
+            color: #f3f4f6;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 0, 75, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(0, 240, 255, 0.05) 0%, transparent 40%);
         }
 
-        /* Header Bar */
-        header {
-            background-color: rgba(15, 23, 42, 0.9);
-            backdrop-filter: blur(12px);
-            padding: 1rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border-color);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .brand-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .laliga-logo {
-            height: 38px;
-            width: auto;
-            object-fit: contain;
-        }
-
-        .brand h1 {
-            font-size: 1.25rem;
-            font-weight: 800;
-            letter-spacing: -0.2px;
-            color: #ffffff;
-            line-height: 1.2;
-        }
-
-        .brand p {
-            color: var(--text-muted);
-            font-size: 0.78rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        /* Main Container */
-        .main-container {
-            max-width: 1100px;
-            margin: 2rem auto;
-            padding: 0 20px;
-        }
-
-        /* Tab Navigation */
-        .tab-navigation {
-            display: flex;
-            gap: 10px;
-            background-color: rgba(30, 41, 59, 0.5);
-            padding: 8px;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            margin-bottom: 25px;
-            backdrop-filter: blur(8px);
-        }
-
-        .tab-btn {
-            flex: 1;
-            padding: 12px 16px;
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-weight: 700;
-            font-size: 0.9rem;
-            cursor: pointer;
-            border-radius: 8px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .tab-btn:hover {
-            color: #ffffff;
-            background-color: rgba(255, 255, 255, 0.05);
-        }
-
-        .tab-btn.active {
-            background-color: var(--primary-accent);
-            color: #ffffff;
-            box-shadow: 0 4px 20px rgba(238, 47, 53, 0.4);
-        }
-
-        /* Tab Content Panel */
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.4s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        /* Section Headings */
-        .section-heading {
-            font-size: 1.2rem;
-            font-weight: 800;
-            color: var(--cyan-accent);
-            margin: 25px 0 15px 0;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            border-bottom: 1px solid rgba(0, 242, 255, 0.2);
-            padding-bottom: 8px;
-        }
-
-        .section-heading:first-child {
-            margin-top: 0;
-        }
-
-        /* Live Video Panel */
-        .live-panel {
-            background: rgba(30, 41, 59, 0.7);
-            padding: 24px;
-            border-radius: 16px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-        }
-
-        .match-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .match-header h3 {
-            font-size: 1.3rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .channel-selector-container {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .channel-select {
-            background-color: var(--card-inner-bg);
-            color: var(--text-main);
-            border: 1px solid var(--border-color);
-            padding: 8px 14px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            outline: none;
-            cursor: pointer;
-        }
-
-        .channel-select:focus {
-            border-color: var(--cyan-accent);
-        }
-
-        .match-status-tag {
-            background: rgba(34, 197, 94, 0.15);
-            border: 1px solid #22c55e;
-            color: #4ade80;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-
-        .live-dot {
-            height: 10px;
-            width: 10px;
-            background-color: #22c55e;
-            border-radius: 50%;
-            display: inline-block;
-            box-shadow: 0 0 10px #22c55e;
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.4; transform: scale(0.8); }
-            100% { opacity: 1; transform: scale(1); }
-        }
-
-        .video-wrapper {
-            width: 100%;
-            border-radius: 12px;
+        /* Video.js Dark LaLiga Custom Styling */
+        .video-js {
+            border-radius: 0.75rem;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
-            border: 1px solid var(--border-color);
+            font-family: 'Inter', sans-serif;
             background-color: #000;
         }
 
-        .video-js {
-            width: 100%;
-            height: 500px;
+        .video-js .vjs-big-play-button {
+            background-color: rgba(255, 0, 75, 0.85) !important;
+            border: 2px solid #ff004b !important;
+            border-radius: 50% !important;
+            width: 70px !important;
+            height: 70px !important;
+            line-height: 66px !important;
+            margin-top: -35px !important;
+            margin-left: -35px !important;
+            box-shadow: 0 0 25px rgba(255, 0, 75, 0.6);
+            transition: all 0.3s ease;
         }
 
-        /* Match Cards Grid (Matches Screenshot Style) */
-        .matches-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
-            gap: 20px;
+        .video-js:hover .vjs-big-play-button,
+        .video-js .vjs-big-play-button:focus {
+            background-color: #ff004b !important;
+            transform: scale(1.1);
+            box-shadow: 0 0 35px rgba(255, 0, 75, 0.9);
         }
 
-        .screenshot-card {
-            background-color: var(--card-bg);
-            border-radius: 20px;
-            padding: 24px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
+        .video-js .vjs-control-bar {
+            background: linear-gradient(to top, rgba(9, 13, 22, 0.95), rgba(9, 13, 22, 0));
+            height: 4em;
         }
 
-        .card-top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .video-js .vjs-play-progress {
+            background-color: #ff004b;
         }
 
-        .stage-title {
-            color: var(--cyan-accent);
-            font-size: 0.85rem;
-            font-weight: 900;
-            letter-spacing: 1.2px;
-            text-transform: uppercase;
+        .video-js .vjs-volume-level {
+            background-color: #00f0ff;
         }
 
-        .status-badge {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            color: var(--green-accent);
-            font-weight: 800;
-            font-size: 0.85rem;
-            letter-spacing: 0.5px;
+        .video-js .vjs-load-progress {
+            background: rgba(255, 255, 255, 0.2);
         }
 
-        .status-badge.upcoming {
-            color: #38bdf8;
+        /* Pulse animation for LIVE badge */
+        @keyframes livePulse {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.95); }
+            100% { opacity: 1; transform: scale(1); }
         }
 
-        /* Teams & Score Pill Area */
-        .teams-score-area {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 10px 0;
+        .live-dot {
+            animation: livePulse 1.8s infinite ease-in-out;
         }
-
-        .team-box {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            width: 38%;
-            text-align: center;
+        
+        /* Custom scrollbar for stream selector */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
         }
-
-        .team-shield {
-            font-size: 2.2rem;
-            color: #ffffff;
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+        ::-webkit-scrollbar-track {
+            background: #090d16;
         }
-
-        .team-name {
-            font-size: 1.05rem;
-            font-weight: 800;
-            color: #ffffff;
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 3px;
         }
-
-        .score-pill {
-            background-color: var(--card-inner-bg);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 12px 24px;
-            border-radius: 16px;
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: #ffffff;
-            letter-spacing: 4px;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.6);
-        }
-
-        .vs-pill {
-            background-color: var(--card-inner-bg);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 10px 20px;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 800;
-            color: var(--text-muted);
-        }
-
-        /* Match Info Meta Box */
-        .match-meta-box {
-            background-color: var(--card-inner-bg);
-            border-radius: 12px;
-            padding: 14px 18px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.82rem;
-            color: var(--text-muted);
-            border: 1px solid rgba(255, 255, 255, 0.04);
-        }
-
-        .match-meta-box strong {
-            color: var(--text-main);
-        }
-
-        /* Goal Scorers Section */
-        .scorers-section {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            font-size: 0.82rem;
-            font-weight: 600;
-            padding-top: 5px;
-        }
-
-        .scorer-column {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .scorer-column.right {
-            align-items: flex-end;
-            text-align: right;
-        }
-
-        .scorer-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            color: #e2e8f0;
-        }
-
-        .ball-icon {
-            color: var(--green-accent);
-            font-size: 0.85rem;
-        }
-
-        /* Standings Table Styles */
-        .standings-panel {
-            background-color: var(--card-bg);
-            border-radius: 20px;
-            padding: 24px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-        }
-
-        .table-responsive {
-            overflow-x: auto;
-        }
-
-        .standings-table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-            font-size: 0.9rem;
-        }
-
-        .standings-table th {
-            padding: 14px 16px;
-            color: var(--text-muted);
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 0.75rem;
-            letter-spacing: 0.5px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .standings-table td {
-            padding: 16px;
-            border-bottom: 1px solid var(--border-color);
-            font-weight: 600;
-        }
-
-        .standings-table tr:hover {
-            background-color: rgba(255, 255, 255, 0.02);
-        }
-
-        .team-cell {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-weight: 800;
-            color: #ffffff;
-        }
-
-        .pos-badge {
-            width: 24px;
-            height: 24px;
-            border-radius: 6px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            font-size: 0.8rem;
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text-muted);
-        }
-
-        .pos-1, .pos-2, .pos-3, .pos-4 { 
-            background: rgba(0, 242, 255, 0.15); 
-            color: var(--cyan-accent); 
-        }
-
-        .pts-cell {
-            color: var(--cyan-accent);
-            font-weight: 900;
-            font-size: 1rem;
-        }
-
-        .table-legend {
-            margin-top: 15px;
-            font-size: 0.78rem;
-            color: var(--text-muted);
-            line-height: 1.5;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .video-js {
-                height: 280px;
-            }
-
-            .matches-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .scorers-section {
-                grid-template-columns: 1fr;
-            }
-
-            .scorer-column.right {
-                align-items: flex-start;
-                text-align: left;
-            }
-
-            .tab-btn span.text {
-                display: none;
-            }
-
-            .match-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ff004b;
         }
     </style>
 </head>
-<body>
+<body class="min-h-screen flex flex-col font-sans antialiased text-gray-100">
 
-    <!-- Header Bar -->
-    <header>
-        <div class="brand-container">
-            <img src="https://assets.laliga.com/assets/logos/LL_RGB_h_color/LL_RGB_h_color.png" alt="LaLiga Logo" class="laliga-logo">
-            <div class="brand">
-                <h1>Home of LALIGA | Sports Hub Official</h1>
-                <p>Football Media Center</p>
+    <!-- Header Banner -->
+    <header class="border-b border-gray-800/80 bg-slate-900/80 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-laligaRed to-red-700 flex items-center justify-center shadow-glow-red text-white font-bold text-xl tracking-tighter">
+                    <i class="fa-solid font-display text-2xl">LL</i>
+                </div>
+                <div>
+                    <h1 class="font-display text-2xl font-bold tracking-wide leading-none text-white flex items-center gap-2">
+                        LALIGA <span class="text-laligaRed">LIVE</span> STREAM
+                    </h1>
+                    <p class="text-xs text-gray-400 font-medium">Official Match Center Stream</p>
+                </div>
+            </div>
+
+            <!-- Header Badge / Status -->
+            <div class="hidden sm:flex items-center gap-3">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-emerald-950/80 text-emerald-400 border border-emerald-800/50">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 live-dot mr-2"></span>
+                    SERVERS ONLINE
+                </span>
+                <span class="text-xs text-gray-400 border-l border-gray-800 pl-3">
+                    HLS HD Adaptive
+                </span>
             </div>
         </div>
     </header>
 
-    <!-- Main Container -->
-    <div class="main-container">
-        
-        <!-- Navigation Tabs -->
-        <div class="tab-navigation">
-            <button class="tab-btn active" onclick="openTab(event, 'live')">
-                <span class="live-dot"></span> 
-                <span class="text">Live Broadcast</span>
-            </button>
-            <button class="tab-btn" onclick="openTab(event, 'schedule')">
-                <i class="fa-regular fa-calendar-days"></i> 
-                <span class="text">Schedule</span>
-            </button>
-            <button class="tab-btn" onclick="openTab(event, 'scores')">
-                <i class="fa-solid fa-trophy"></i> 
-                <span class="text">Scores & Results</span>
-            </button>
-            <button class="tab-btn" onclick="openTab(event, 'standings')">
-                <i class="fa-solid fa-list-ol"></i> 
-                <span class="text">Standings</span>
-            </button>
-        </div>
+    <!-- Main Content Grid -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
 
-        <!-- TAB 1: LIVE BROADCAST -->
-        <div id="live" class="tab-content active">
-            <div class="live-panel">
-                <div class="match-header">
-                    <h3 id="channel-title"><i class="fa-solid fa-tower-broadcast" style="color: var(--primary-accent);"></i> Pick your channels!</h3>
-                    
-<div class="channel-selector-container">
-    <label for="channelSelect"><i class="fa-solid fa-tv"></i> Channel:</label>
-    <select id="channelSelect" class="channel-select" onchange="switchChannel(this.value)">
-
-<option value="https://tvsen5.aynaott.com/TnMn5kZz8aLm/index.m3u8">T Sports BD</option>
-<option value="https://ott.djdoolky76.io/api/streams/159/manifest.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInN0cmVhbVRva2VuIjoiOGVkOTY4MTIzODE2ZDQyY2U0Y2I5Y2E0YjBkNTI2ZTRlNDFmMDViZTY5MmE1ZjBjNTE3MjU1MjAwNTE3NWQ5OSIsImlhdCI6MTc4ODg1NTI5NywiZXhwIjoxNzkwNTUzNTk5fQ.SMMqC8ske6hFRgVrE8BAMPlH35xSkMqfuSI79zZ3ZAQ">beIN Sports 1 Malaysia</option>
-<option value="https://ott.djdoolky76.io/api/streams/160/manifest.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInN0cmVhbVRva2VuIjoiOGVkOTY4MTIzODE2ZDQyY2U0Y2I5Y2E0YjBkNTI2ZTRlNDFmMDViZTY5MmE1ZjBjNTE3MjU1MjAwNTE3NWQ5OSIsImlhdCI6MTc4ODg1NTI5NywiZXhwIjoxNzkwNTUzNTk5fQ.SMMqC8ske6hFRgVrE8BAMPlH35xSkMqfuSI79zZ3ZAQ">beIN Sports 2 Malaysia</option>
-<option value="https://ott.djdoolky76.io/api/streams/161/manifest.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInN0cmVhbVRva2VuIjoiOGVkOTY4MTIzODE2ZDQyY2U0Y2I5Y2E0YjBkNTI2ZTRlNDFmMDViZTY5MmE1ZjBjNTE3MjU1MjAwNTE3NWQ5OSIsImlhdCI6MTc4ODg1NTI5NywiZXhwIjoxNzkwNTUzNTk5fQ.SMMqC8ske6hFRgVrE8BAMPlH35xSkMqfuSI79zZ3ZAQ">beIN Sports 3 Malaysia</option>
-
-    <select>
-</div>
-                        <span class="match-status-tag">Live Broadcast</span>
-                    </div>
+        <!-- Channel Selection Bar (Top Controls) -->
+        <section class="bg-darkCard rounded-xl p-4 border border-gray-800/80 shadow-lg flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="p-2.5 bg-gray-800/80 rounded-lg text-laligaRed">
+                    <i class="fa-solid fa-tv text-lg"></i>
                 </div>
+                <div>
+                    <label for="channelSelect" class="block text-xs font-medium text-gray-400 uppercase tracking-wider">Select Broadcast Channel</label>
+                    <span id="currentChannelDisplay" class="text-sm font-semibold text-white">T Sports BD</span>
+                </div>
+            </div>
+
+            <!-- Channel Dropdown Selector -->
+            <div class="relative min-w-[260px] sm:w-80">
+                <select id="channelSelect" class="w-full bg-slate-900 text-white font-medium text-sm rounded-lg border border-gray-700 hover:border-laligaRed focus:border-laligaRed focus:ring-1 focus:ring-laligaRed p-3 pr-10 appearance-none cursor-pointer transition-all outline-none">
+                    <option value="0">1. T Sports BD</option>
+                    <option value="1">2. beIN Sports 1 Malaysia</option>
+                    <option value="2">3. beIN Sports 2 Malaysia</option>
+                    <option value="3">4. beIN Sports 3 Malaysia</option>
+                </select>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-laligaRed">
+                    <i class="fa-solid fa-chevron-down text-sm"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- Video Player Section -->
+        <section class="relative bg-black rounded-2xl overflow-hidden border border-gray-800 shadow-2xl">
+            <!-- Player Status Top Overlay Bar -->
+            <div class="absolute top-0 left-0 right-0 z-10 p-4 bg-gradient-to-b from-black/80 via-black/40 to-transparent flex items-center justify-between pointer-events-none">
+                <div class="flex items-center space-x-2">
+                    <span class="px-2.5 py-1 bg-laligaRed text-white text-xs font-bold rounded uppercase tracking-wider shadow-glow-red flex items-center gap-1.5 pointer-events-auto">
+                        <span class="w-2 h-2 rounded-full bg-white live-dot"></span>
+                        LIVE
+                    </span>
+                    <span id="streamTitleTag" class="text-xs font-semibold text-gray-200 bg-slate-900/80 backdrop-blur-md px-3 py-1 rounded border border-gray-700/50 pointer-events-auto">
+                        T Sports BD
+                    </span>
+                </div>
+
+                <!-- Signal Status -->
+                <div class="flex items-center space-x-3 pointer-events-auto">
+                    <span id="qualityBadge" class="text-xs font-mono bg-cyanHighlight/10 text-cyanHighlight border border-cyanHighlight/30 px-2.5 py-0.5 rounded font-bold">
+                        AUTO HLS
+                    </span>
+                    <button id="reloadBtn" class="text-gray-300 hover:text-white bg-slate-900/80 hover:bg-slate-800 p-1.5 rounded transition text-xs border border-gray-700" title="Reload Stream">
+                        <i class="fa-solid fa-rotate"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Video.js Responsive Canvas -->
+            <div class="w-full aspect-video relative">
+                <video id="laliga-player" class="video-js vjs-big-play-centered vjs-fluid w-full h-full" controls preload="auto" crossorigin="anonymous">
+                    <p class="vjs-no-js">
+                        To view this video please enable JavaScript, and consider upgrading to a web browser that
+                        <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+                    </p>
+                </video>
+            </div>
+
+            <!-- Stream Alert / Overlay Notification Message -->
+            <div id="playerNotice" class="hidden absolute inset-0 bg-slate-950/90 z-20 flex flex-col items-center justify-center text-center p-6 space-y-4 backdrop-blur-sm">
+                <div class="w-16 h-16 bg-red-900/40 border border-laligaRed rounded-full flex items-center justify-center text-laligaRed text-2xl">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-1">Stream Connectivity Notice</h3>
+                    <p id="noticeText" class="text-sm text-gray-400 max-w-md">Attempting to connect to stream feed. If stream fails to load, please switch channels or refresh.</p>
+                </div>
+                <button id="retryBtn" class="px-5 py-2.5 bg-laligaRed hover:bg-laligaRedHover text-white text-sm font-semibold rounded-lg shadow-glow-red transition">
+                    Retry Connection
+                </button>
+            </div>
+        </section>
+
+        <!-- Quick Switch Grid Buttons -->
+        <section class="space-y-3">
+            <div class="flex items-center justify-between">
+                <h2 class="text-sm font-semibold text-gray-400 uppercase tracking-wider flex items-center gap-2">
+                    <i class="fa-solid fa-bolt text-laligaRed"></i> Quick Channel Switcher
+                </h2>
+                <span class="text-xs text-gray-500">4 Streams Available</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 
-                <div class="video-wrapper">
-                    <video 
-                        id="laliga-player" 
-                        class="video-js vjs-theme-city vjs-big-play-centered" 
-                        controls 
-                        preload="auto" 
-                        data-setup='{}'>
-                        <source src="https://tvsen5.aynaott.com/TnMn5kZz8aLm/index.m3u8" type="application/x-mpegURL">
-                        <p class="vjs-no-js">
-                            To view this video please enable JavaScript, and consider upgrading to a web browser that
-                            <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-                        </p>
-                    </video>
+                <!-- Channel Card 0 -->
+                <button data-channel-idx="0" class="channel-card group text-left bg-darkCard hover:bg-slate-800 border border-laligaRed/60 bg-slate-800/50 p-4 rounded-xl transition-all duration-200 relative overflow-hidden shadow-lg">
+                    <div class="absolute top-0 right-0 w-2 h-full bg-laligaRed card-active-indicator"></div>
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-bold text-laligaRed uppercase tracking-wider">Channel 01</span>
+                        <span class="text-[10px] bg-red-950/60 text-red-400 border border-red-800/40 px-2 py-0.5 rounded font-mono">PRIMARY</span>
+                    </div>
+                    <h3 class="font-bold text-white text-base group-hover:text-laligaRed transition">T Sports BD</h3>
+                    <p class="text-xs text-gray-400 mt-1 truncate">m3u8 Direct Stream</p>
+                </button>
+
+                <!-- Channel Card 1 -->
+                <button data-channel-idx="1" class="channel-card group text-left bg-darkCard hover:bg-slate-800 border border-gray-800 p-4 rounded-xl transition-all duration-200 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-2 h-full bg-laligaRed hidden card-active-indicator"></div>
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Channel 02</span>
+                        <span class="text-[10px] bg-slate-800 text-gray-300 border border-gray-700 px-2 py-0.5 rounded font-mono">BEIN MY</span>
+                    </div>
+                    <h3 class="font-bold text-white text-base group-hover:text-laligaRed transition">beIN Sports 1</h3>
+                    <p class="text-xs text-gray-400 mt-1 truncate">Malaysia Stream Feed</p>
+                </button>
+
+                <!-- Channel Card 2 -->
+                <button data-channel-idx="2" class="channel-card group text-left bg-darkCard hover:bg-slate-800 border border-gray-800 p-4 rounded-xl transition-all duration-200 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-2 h-full bg-laligaRed hidden card-active-indicator"></div>
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Channel 03</span>
+                        <span class="text-[10px] bg-slate-800 text-gray-300 border border-gray-700 px-2 py-0.5 rounded font-mono">BEIN MY</span>
+                    </div>
+                    <h3 class="font-bold text-white text-base group-hover:text-laligaRed transition">beIN Sports 2</h3>
+                    <p class="text-xs text-gray-400 mt-1 truncate">Malaysia Stream Feed</p>
+                </button>
+
+                <!-- Channel Card 3 -->
+                <button data-channel-idx="3" class="channel-card group text-left bg-darkCard hover:bg-slate-800 border border-gray-800 p-4 rounded-xl transition-all duration-200 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-2 h-full bg-laligaRed hidden card-active-indicator"></div>
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Channel 04</span>
+                        <span class="text-[10px] bg-slate-800 text-gray-300 border border-gray-700 px-2 py-0.5 rounded font-mono">BEIN MY</span>
+                    </div>
+                    <h3 class="font-bold text-white text-base group-hover:text-laligaRed transition">beIN Sports 3</h3>
+                    <p class="text-xs text-gray-400 mt-1 truncate">Malaysia Stream Feed</p>
+                </button>
+
+            </div>
+        </section>
+
+        <!-- Player Info & Instructions Card -->
+        <section class="bg-darkCard rounded-xl p-5 border border-gray-800/80 text-sm text-gray-400 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <div class="flex items-start space-x-3">
+                <i class="fa-solid fa-circle-info text-cyanHighlight text-lg mt-0.5"></i>
+                <div>
+                    <h4 class="font-semibold text-white">Playback & Performance Tips</h4>
+                    <p class="text-xs text-gray-400 mt-0.5">Stream feeds are served via HLS adaptive bitrate streaming. CORS restrictions or stream provider token expiration may affect load performance.</p>
                 </div>
             </div>
+            <div class="flex items-center space-x-2 w-full md:w-auto justify-end">
+                <button id="fullscreenToggle" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white text-xs font-medium rounded-lg border border-gray-700 flex items-center gap-2 transition">
+                    <i class="fa-solid fa-expand"></i> Theater View
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-800/80 bg-slate-950 py-6 mt-8 text-center text-xs text-gray-500">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center space-x-2">
+                <span class="font-display text-lg text-white font-bold">LALIGA</span>
+                <span>• Stream Player Center</span>
+            </div>
+            <p>Designed for fast HLS media playback with Video.js</p>
         </div>
-
-        <!-- TAB 2: SCHEDULE (MATCHWEEK 1 - 4 & SEASON FINALE) -->
-        <div id="schedule" class="tab-content">
-            
-            <!-- MATCHWEEK 1 -->
-            <div class="section-heading"><i class="fa-solid fa-shield-halved"></i> Matchweek 1</div>
-            <div class="matches-grid">
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 1</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 01:30 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Deportivo Alavés</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Getafe CF</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Mendizorrotza Stadium</strong></div><div>Date: <strong>Sun, Aug 16</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 1</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:30 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Sevilla FC</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Rayo Vallecano</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Ramón Sánchez-Pizjuán</strong></div><div>Date: <strong>Sun, Aug 16</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 1</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 23:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Real Racing Club</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Villarreal CF</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>El Sardinero</strong></div><div>Date: <strong>Sun, Aug 16</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 1</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 01:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">RCD Espanyol</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Levante UD</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>RCDE Stadium</strong></div><div>Date: <strong>Mon, Aug 17</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 1</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:30 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">RC Celta de Vigo</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">CA Osasuna</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Abanca-Balaídos</strong></div><div>Date: <strong>Mon, Aug 17</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 1</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">RC Deportivo La Coruña</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Elche CF</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Abanca-Riazor</strong></div><div>Date: <strong>Tue, Aug 18</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 1</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Atlético Madrid</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Málaga CF</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Riyadh Air Metropolitano</strong></div><div>Date: <strong>Thu, Aug 20</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 1</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Valencia CF</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Real Betis</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Mestalla</strong></div><div>Date: <strong>Wed, Aug 26</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 1</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Real Madrid</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Real Sociedad</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Santiago Bernabéu</strong></div><div>Date: <strong>Thu, Aug 27</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 1</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">FC Barcelona</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Athletic Club</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Spotify Camp Nou</strong></div><div>Date: <strong>Fri, Aug 28</strong></div></div>
-                </div>
-            </div>
-
-            <!-- MATCHWEEK 2 -->
-            <div class="section-heading"><i class="fa-solid fa-shield-halved"></i> Matchweek 2</div>
-            <div class="matches-grid">
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 2</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Rayo Vallecano</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Deportivo Alavés</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Vallecas</strong></div><div>Date: <strong>Fri, Aug 21</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 2</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Real Betis</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Real Sociedad</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Benito Villamarín</strong></div><div>Date: <strong>Sat, Aug 22</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 2</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 23:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Athletic Club</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Sevilla FC</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>San Mamés</strong></div><div>Date: <strong>Sat, Aug 22</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 2</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 01:30 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Valencia CF</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">RC Celta de Vigo</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Mestalla</strong></div><div>Date: <strong>Sun, Aug 23</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 2</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:30 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">RCD Espanyol</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Real Madrid</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>RCDE Stadium</strong></div><div>Date: <strong>Sun, Aug 23</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 2</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 23:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Atlético Madrid</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Villarreal CF</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Riyadh Air Metropolitano</strong></div><div>Date: <strong>Sun, Aug 23</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 2</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 01:30 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Getafe CF</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Real Racing Club</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Coliseum</strong></div><div>Date: <strong>Mon, Aug 24</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 2</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:30 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Elche CF</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">FC Barcelona</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Manuel Martínez Valero</strong></div><div>Date: <strong>Mon, Aug 24</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 2</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 01:30 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">CA Osasuna</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Levante UD</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>El Sadar</strong></div><div>Date: <strong>Tue, Aug 25</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 2</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:30 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Málaga CF</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">RC Deportivo La Coruña</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>La Rosaleda</strong></div><div>Date: <strong>Tue, Aug 25</strong></div></div>
-                </div>
-            </div>
-
-            <!-- MATCHWEEK 3 -->
-            <div class="section-heading"><i class="fa-solid fa-shield-halved"></i> Matchweek 3</div>
-            <div class="matches-grid">
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 3</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 01:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Real Racing Club</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Elche CF</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>El Sardinero</strong></div><div>Date: <strong>Sat, Aug 29</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 3</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:30 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Deportivo Alavés</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Villarreal CF</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Mendizorrotza Stadium</strong></div><div>Date: <strong>Sat, Aug 29</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 3</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 23:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Levante UD</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Real Betis</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Ciutat de València</strong></div><div>Date: <strong>Sat, Aug 29</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 3</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 01:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Real Sociedad</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">RCD Espanyol</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Reale Arena</strong></div><div>Date: <strong>Sun, Aug 30</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 3</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:30 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Sevilla FC</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Atlético Madrid</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Ramón Sánchez-Pizjuán</strong></div><div>Date: <strong>Sun, Aug 30</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 3</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 23:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Real Madrid</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Málaga CF</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Santiago Bernabéu</strong></div><div>Date: <strong>Sun, Aug 30</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 3</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 01:30 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">RC Deportivo La Coruña</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Valencia CF</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Abanca-Riazor</strong></div><div>Date: <strong>Mon, Aug 31</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 3</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:30 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">RC Celta de Vigo</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Athletic Club</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Abanca-Balaídos</strong></div><div>Date: <strong>Mon, Aug 31</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 3</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 01:30 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">CA Osasuna</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Getafe CF</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>El Sadar</strong></div><div>Date: <strong>Tue, Sep 1</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 3</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:30 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">FC Barcelona</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Rayo Vallecano</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Spotify Camp Nou</strong></div><div>Date: <strong>Tue, Sep 1</strong></div></div>
-                </div>
-            </div>
-
-            <!-- MATCHWEEK 4 -->
-            <div class="section-heading"><i class="fa-solid fa-shield-halved"></i> Matchweek 4</div>
-            <div class="matches-grid">
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 4</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Deportivo Alavés</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">CA Osasuna</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Mendizorrotza Stadium</strong></div><div>Date: <strong>Mon, Sep 7</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 4</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Elche CF</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Real Sociedad</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Manuel Martínez Valero</strong></div><div>Date: <strong>Mon, Sep 7</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 4</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Getafe CF</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">RC Celta de Vigo</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Coliseum</strong></div><div>Date: <strong>Mon, Sep 7</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 4</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Valencia CF</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">FC Barcelona</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Mestalla</strong></div><div>Date: <strong>Mon, Sep 7</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 4</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">RCD Espanyol</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Sevilla FC</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>RCDE Stadium</strong></div><div>Date: <strong>Mon, Sep 7</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 4</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Real Betis</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Real Madrid</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Benito Villamarín</strong></div><div>Date: <strong>Mon, Sep 7</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 4</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Athletic Club</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Atlético Madrid</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>San Mamés</strong></div><div>Date: <strong>Mon, Sep 7</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 4</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Málaga CF</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Levante UD</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>La Rosaleda</strong></div><div>Date: <strong>Mon, Sep 7</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 4</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Villarreal CF</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">RC Deportivo La Coruña</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Estadio de la Cerámica</strong></div><div>Date: <strong>Mon, Sep 7</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 4</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Rayo Vallecano</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Real Racing Club</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Vallecas</strong></div><div>Date: <strong>Mon, Sep 7</strong></div></div>
-                </div>
-            </div>
-
-
-<!-- MATCHWEEK 5 -->
-            <div class="section-heading"><i class="fa-solid fa-shield-halved"></i> Matchweek 5</div>
-            <div class="matches-grid">
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 5</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Villarreal CF</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Real Betis</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Estadio de la Cerámica</strong></div><div>Date: <strong>Mon, Sep 14</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 5</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">RC Celta de Vigo</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Málaga CF</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Abanca-Balaídos</strong></div><div>Date: <strong>Mon, Sep 14</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 5</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Levante UD</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">FC Barcelona</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Ciutat de València</strong></div><div>Date: <strong>Mon, Sep 14</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 5</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Athletic Club</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Elche CF</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>San Mamés</strong></div><div>Date: <strong>Mon, Sep 14</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 5</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">CA Osasuna</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">RCD Espanyol</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>El Sadar</strong></div><div>Date: <strong>Mon, Sep 14</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 5</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Real Madrid</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Rayo Vallecano</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Santiago Bernabéu</strong></div><div>Date: <strong>Mon, Sep 14</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 5</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Real Sociedad</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Atlético Madrid</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Reale Arena</strong></div><div>Date: <strong>Mon, Sep 14</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 5</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Getafe CF</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">RC Deportivo La Coruña</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Coliseum</strong></div><div>Date: <strong>Mon, Sep 14</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 5</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Sevilla FC</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Valencia CF</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Ramón Sánchez-Pizjuán</strong></div><div>Date: <strong>Mon, Sep 14</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 5</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Real Racing Club</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Deportivo Alavés</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>El Sardinero</strong></div><div>Date: <strong>Mon, Sep 14</strong></div></div>
-                </div>
-            </div>
-
-            <!-- MATCHWEEK 6 -->
-            <div class="section-heading"><i class="fa-solid fa-shield-halved"></i> Matchweek 6</div>
-            <div class="matches-grid">
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 6</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">FC Barcelona</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Real Racing Club</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Spotify Camp Nou</strong></div><div>Date: <strong>Thu, Sep 17</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 6</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Deportivo Alavés</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Valencia CF</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Mendizorrotza Stadium</strong></div><div>Date: <strong>Thu, Sep 17</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 6</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">RC Deportivo La Coruña</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Sevilla FC</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Abanca-Riazor</strong></div><div>Date: <strong>Thu, Sep 17</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 6</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Atlético Madrid</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">CA Osasuna</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Riyadh Air Metropolitano</strong></div><div>Date: <strong>Thu, Sep 17</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 6</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Málaga CF</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Villarreal CF</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>La Rosaleda</strong></div><div>Date: <strong>Thu, Sep 17</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 6</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Rayo Vallecano</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">RCD Espanyol</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Vallecas</strong></div><div>Date: <strong>Thu, Sep 17</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 6</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Elche CF</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Real Madrid</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Manuel Martínez Valero</strong></div><div>Date: <strong>Thu, Sep 17</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 6</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Real Betis</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Getafe CF</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Benito Villamarín</strong></div><div>Date: <strong>Thu, Sep 17</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 6</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Levante UD</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Athletic Club</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Ciutat de València</strong></div><div>Date: <strong>Thu, Sep 17</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 6</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Real Sociedad</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">RC Celta de Vigo</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Reale Arena</strong></div><div>Date: <strong>Thu, Sep 17</strong></div></div>
-                </div>
-            </div>
-
-            <!-- MATCHWEEK 7 -->
-            <div class="section-heading"><i class="fa-solid fa-shield-halved"></i> Matchweek 7</div>
-            <div class="matches-grid">
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 7</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">RC Deportivo La Coruña</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Real Betis</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Abanca-Riazor</strong></div><div>Date: <strong>Mon, Sep 21</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 7</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">RCD Espanyol</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Elche CF</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>RCDE Stadium</strong></div><div>Date: <strong>Mon, Sep 21</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 7</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Villarreal CF</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Levante UD</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Estadio de la Cerámica</strong></div><div>Date: <strong>Mon, Sep 21</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 7</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">CA Osasuna</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Rayo Vallecano</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>El Sadar</strong></div><div>Date: <strong>Mon, Sep 21</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 7</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Sevilla FC</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">FC Barcelona</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Ramón Sánchez-Pizjuán</strong></div><div>Date: <strong>Mon, Sep 21</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 7</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Valencia CF</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Real Sociedad</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Mestalla</strong></div><div>Date: <strong>Mon, Sep 21</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 7</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Athletic Club</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Deportivo Alavés</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>San Mamés</strong></div><div>Date: <strong>Mon, Sep 21</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 7</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">RC Celta de Vigo</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Real Racing Club</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Abanca-Balaídos</strong></div><div>Date: <strong>Mon, Sep 21</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 7</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Getafe CF</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Málaga CF</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Coliseum</strong></div><div>Date: <strong>Mon, Sep 21</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 7</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Atlético Madrid</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Real Madrid</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Riyadh Air Metropolitano</strong></div><div>Date: <strong>Mon, Sep 21</strong></div></div>
-                </div>
-            </div>
-
-            <!-- MATCHWEEK 8 -->
-            <div class="section-heading"><i class="fa-solid fa-shield-halved"></i> Matchweek 8</div>
-            <div class="matches-grid">
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 8</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Levante UD</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Sevilla FC</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Ciutat de València</strong></div><div>Date: <strong>Mon, Oct 12</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 8</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Elche CF</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">RC Celta de Vigo</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Manuel Martínez Valero</strong></div><div>Date: <strong>Mon, Oct 12</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 8</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Deportivo Alavés</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Atlético Madrid</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Mendizorrotza Stadium</strong></div><div>Date: <strong>Mon, Oct 12</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 8</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Real Madrid</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Villarreal CF</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Santiago Bernabéu</strong></div><div>Date: <strong>Mon, Oct 12</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 8</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Málaga CF</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">RCD Espanyol</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>La Rosaleda</strong></div><div>Date: <strong>Mon, Oct 12</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 8</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Real Sociedad</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">RC Deportivo La Coruña</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Reale Arena</strong></div><div>Date: <strong>Mon, Oct 12</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 8</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Real Betis</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">CA Osasuna</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Benito Villamarín</strong></div><div>Date: <strong>Mon, Oct 12</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 8</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Rayo Vallecano</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Athletic Club</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Vallecas</strong></div><div>Date: <strong>Mon, Oct 12</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 8</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Real Racing Club</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Valencia CF</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>El Sardinero</strong></div><div>Date: <strong>Mon, Oct 12</strong></div></div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="card-top-bar"><span class="stage-title">MATCHWEEK 8</span><span class="status-badge upcoming"><i class="fa-regular fa-clock"></i> 03:00 MYT</span></div>
-                    <div class="teams-score-area">
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">FC Barcelona</span></div>
-                        <div class="vs-pill">VS</div>
-                        <div class="team-box"><i class="fa-solid fa-shield-halved team-shield"></i><span class="team-name">Getafe CF</span></div>
-                    </div>
-                    <div class="match-meta-box"><div>Stadium: <strong>Spotify Camp Nou</strong></div><div>Date: <strong>Mon, Oct 12</strong></div></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- TAB 3: SCORES & RESULTS (FINISHED MATCHES) -->
-        <div id="scores" class="tab-content">
-            <div class="matches-grid">
-                
-                <!-- Result 1 -->
-                <div class="screenshot-card">
-                    <div class="card-top-bar">
-                        <span class="stage-title">3RD PLACE PLAY-OFF</span>
-                        <span class="status-badge"><i class="fa-solid fa-circle-check"></i> FT</span>
-                    </div>
-
-                    <div class="teams-score-area">
-                        <div class="team-box">
-                            <i class="fa-solid fa-shield-halved team-shield"></i>
-                            <span class="team-name">France</span>
-                        </div>
-                        <div class="score-pill">4 : 6</div>
-                        <div class="team-box">
-                            <i class="fa-solid fa-shield-halved team-shield"></i>
-                            <span class="team-name">England</span>
-                        </div>
-                    </div>
-
-                    <div class="match-meta-box">
-                        <div>Stadium: <strong>Hard Rock Stadium</strong></div>
-                        <div>Date: <strong>Jul 19, 2026</strong></div>
-                    </div>
-
-                    <div class="scorers-section">
-                        <div class="scorer-column">
-                            <div class="scorer-item"><i class="fa-solid fa-football ball-icon"></i> K. Mbappé (48')</div>
-                            <div class="scorer-item"><i class="fa-solid fa-football ball-icon"></i> B. Barcola (54')</div>
-                            <div class="scorer-item"><i class="fa-solid fa-football ball-icon"></i> K. Mbappé (66')</div>
-                            <div class="scorer-item"><i class="fa-solid fa-football ball-icon"></i> O. Dembélé (90+6')</div>
-                        </div>
-                        <div class="scorer-column right">
-                            <div class="scorer-item"><i class="fa-solid fa-football ball-icon"></i> D. Rice (3')</div>
-                            <div class="scorer-item"><i class="fa-solid fa-football ball-icon"></i> E. Konsa (18')</div>
-                            <div class="scorer-item"><i class="fa-solid fa-football ball-icon"></i> B. Saka (37')</div>
-                            <div class="scorer-item"><i class="fa-solid fa-football ball-icon"></i> B. Saka (45+1')</div>
-                            <div class="scorer-item"><i class="fa-solid fa-football ball-icon"></i> B. Saka (87', pen)</div>
-                            <div class="scorer-item"><i class="fa-solid fa-football ball-icon"></i> J. Bellingham (90+8')</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Result 2 -->
-                <div class="screenshot-card">
-                    <div class="card-top-bar">
-                        <span class="stage-title">SEMI FINAL</span>
-                        <span class="status-badge"><i class="fa-solid fa-circle-check"></i> FT</span>
-                    </div>
-
-                    <div class="teams-score-area">
-                        <div class="team-box">
-                            <i class="fa-solid fa-shield-halved team-shield"></i>
-                            <span class="team-name">England</span>
-                        </div>
-                        <div class="score-pill">1 : 2</div>
-                        <div class="team-box">
-                            <i class="fa-solid fa-shield-halved team-shield"></i>
-                            <span class="team-name">Argentina</span>
-                        </div>
-                    </div>
-
-                    <div class="match-meta-box">
-                        <div>Stadium: <strong>Mercedes-Benz Stadium</strong></div>
-                        <div>Date: <strong>Jul 16, 2026</strong></div>
-                    </div>
-
-                    <div class="scorers-section">
-                        <div class="scorer-column">
-                            <div class="scorer-item"><i class="fa-solid fa-football ball-icon"></i> A. Gordon (55')</div>
-                        </div>
-                        <div class="scorer-column right">
-                            <div class="scorer-item"><i class="fa-solid fa-football ball-icon"></i> E. Fernández (85')</div>
-                            <div class="scorer-item"><i class="fa-solid fa-football ball-icon"></i> L. Martínez (90+2')</div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- TAB 4: STANDINGS (ALL 20 LALIGA TEAMS 2026/27) -->
-        <div id="standings" class="tab-content">
-            <div class="standings-panel">
-                <div class="match-header">
-                    <h3><i class="fa-solid fa-list-ol" style="color: var(--primary-accent);"></i> LaLiga Initial Standings (2026/27 Season)</h3>
-                </div>
-                
-                <div class="table-responsive">
-                    <table class="standings-table">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Team</th>
-                                <th>GP</th>
-                                <th>W</th>
-                                <th>D</th>
-                                <th>L</th>
-                                <th>GF</th>
-                                <th>GA</th>
-                                <th>GD</th>
-                                <th>Pts</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td><span class="pos-badge pos-1">1</span></td><td class="team-cell"><i class="fa-solid fa-shield-halved"></i> Athletic Club</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="pts-cell">0</td></tr>
-                            <tr><td><span class="pos-badge pos-2">2</span></td><td class="team-cell"><i class="fa-solid fa-shield-halved"></i> Atlético Madrid</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="pts-cell">0</td></tr>
-                            <tr><td><span class="pos-badge pos-3">3</span></td><td class="team-cell"><i class="fa-solid fa-shield-halved"></i> CA Osasuna</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="pts-cell">0</td></tr>
-                            <tr><td><span class="pos-badge pos-4">4</span></td><td class="team-cell"><i class="fa-solid fa-shield-halved"></i> RC Deportivo La Coruña</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="pts-cell">0</td></tr>
-                            <tr><td><span class="pos-badge">5</span></td><td class="team-cell"><i class="fa-solid fa-shield-halved"></i> Deportivo Alavés</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="pts-cell">0</td></tr>
-                            <tr><td><span class="pos-badge">6</span></td><td class="team-cell"><i class="fa-solid fa-shield-halved"></i> Elche CF</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="pts-cell">0</td></tr>
-                            <tr><td><span class="pos-badge">7</span></td><td class="team-cell"><i class="fa-solid fa-shield-halved"></i> FC Barcelona</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="pts-cell">0</td></tr>
-                            <tr><td><span class="pos-badge">8</span></td><td class="team-cell"><i class="fa-solid fa-shield-halved"></i> Getafe CF</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="pts-cell">0</td></tr>
-                            <tr><td><span class="pos-badge">9</span></td><td class="team-cell"><i class="fa-solid fa-shield-halved"></i> Levante UD</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="pts-cell">0</td></tr>
-                            <tr><td><span class="pos-badge">10</span></td><td class="team-cell"><i class="fa-solid fa-shield-halved"></i> Málaga CF</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="pts-cell">0</td></tr>
-                            <tr><td><span class="pos-badge">11</span></td><td class="team-cell"><i class="fa-solid fa-shield-halved"></i> Rayo Vallecano</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="pts-cell">0</td></tr>
-                            <tr><td><span class="pos-badge">12</span></td><td class="team-cell"><i class="fa-solid fa-shield-halved"></i> RC Celta de Vigo</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="pts-cell">0</td></tr>
-                            <tr><td><span class="pos-badge">13</span></td><td class="team-cell"><i class="fa-solid fa-shield-halved"></i> RCD Espanyol</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="pts-cell">0</td></tr>
-                            <tr><td><span class="pos-badge">14</span></td><td class="team-cell"><i class="fa-solid fa-shield-halved"></i> Real Betis</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="pts-cell">0</td></tr>
-                            <tr><td><span class="pos-badge">15</span></td><td class="team-cell"><i class="fa-solid fa-shield-halved"></i> Real Madrid CF</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="pts-cell">0</td></tr>
-                            <tr><td><span class="pos-badge">16</span></td><td class="team-cell"><i class="fa-solid fa-shield-halved"></i> Real Racing Club</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="pts-cell">0</td></tr>
-                            <tr><td><span class="pos-badge">17</span></td><td class="team-cell"><i class="fa-solid fa-shield-halved"></i> Real Sociedad</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="pts-cell">0</td></tr>
-                            <tr><td><span class="pos-badge">18</span></td><td class="team-cell"><i class="fa-solid fa-shield-halved"></i> Sevilla FC</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="pts-cell">0</td></tr>
-                            <tr><td><span class="pos-badge">19</span></td><td class="team-cell"><i class="fa-solid fa-shield-halved"></i> Valencia CF</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="pts-cell">0</td></tr>
-                            <tr><td><span class="pos-badge">20</span></td><td class="team-cell"><i class="fa-solid fa-shield-halved"></i> Villarreal CF</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="pts-cell">0</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="table-legend">
-                    <strong>Legend:</strong> 
-                    <strong>GP</strong> (Games Played) | 
-                    <strong>W</strong> (Wins) | 
-                    <strong>D</strong> (Draws) | 
-                    <strong>L</strong> (Losses) | 
-                    <strong>GF</strong> (Goals For) | 
-                    <strong>GA</strong> (Goals Against) | 
-                    <strong>GD</strong> (Goal Difference) | 
-                    <strong>Pts</strong> (Points)
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- Video.js Library -->
-    <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
+    </footer>
 
     <script>
-        // Tab Switch Function
-        function openTab(evt, tabName) {
-            let tabcontent = document.getElementsByClassName("tab-content");
-            for (let i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].classList.remove("active");
+        // Channel Data Source Definitions
+        const channels = [
+            {
+                id: 0,
+                name: "T Sports BD",
+                shortName: "T Sports",
+                url: "https://tvsen5.aynaott.com/TnMn5kZz8aLm/index.m3u8",
+                badge: "PRIMARY"
+            },
+            {
+                id: 1,
+                name: "beIN Sports 1 Malaysia",
+                shortName: "beIN Sports 1",
+                url: "https://ott.djdoolky76.io/api/streams/159/manifest.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInN0cmVhbVRva2VuIjoiOGVkOTY4MTIzODE2ZDQyY2U0Y2I5Y2E0YjBkNTI2ZTRlNDFmMDViZTY5MmE1ZjBjNTE3MjU1MjAwNTE3NWQ5OSIsImlhdCI6MTc4ODg1NTI5NywiZXhwIjoxNzkwNTUzNTk5fQ.SMMqC8ske6hFRgVrE8BAMPlH35xSkMqfuSI79zZ3ZAQ",
+                badge: "BEIN MY"
+            },
+            {
+                id: 2,
+                name: "beIN Sports 2 Malaysia",
+                shortName: "beIN Sports 2",
+                url: "https://ott.djdoolky76.io/api/streams/160/manifest.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInN0cmVhbVRva2VuIjoiOGVkOTY4MTIzODE2ZDQyY2U0Y2I5Y2E0YjBkNTI2ZTRlNDFmMDViZTY5MmE1ZjBjNTE3MjU1MjAwNTE3NWQ5OSIsImlhdCI6MTc4ODg1NTI5NywiZXhwIjoxNzkwNTUzNTk5fQ.SMMqC8ske6hFRgVrE8BAMPlH35xSkMqfuSI79zZ3ZAQ",
+                badge: "BEIN MY"
+            },
+            {
+                id: 3,
+                name: "beIN Sports 3 Malaysia",
+                shortName: "beIN Sports 3",
+                url: "https://ott.djdoolky76.io/api/streams/161/manifest.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInN0cmVhbVRva2VuIjoiOGVkOTY4MTIzODE2ZDQyY2U0Y2I5Y2E0YjBkNTI2ZTRlNDFmMDViZTY5MmE1ZjBjNTE3MjU1MjAwNTE3NWQ5OSIsImlhdCI6MTc4ODg1NTI5NywiZXhwIjoxNzkwNTUzNTk5fQ.SMMqC8ske6hFRgVrE8BAMPlH35xSkMqfuSI79zZ3ZAQ",
+                badge: "BEIN MY"
             }
+        ];
 
-            let tablinks = document.getElementsByClassName("tab-btn");
-            for (let i = 0; i < tablinks.length; i++) {
-                tablinks[i].classList.remove("active");
-            }
+        let player = null;
+        let activeChannelIndex = 0;
 
-            document.getElementById(tabName).classList.add("active");
-            evt.currentTarget.classList.add("active");
-        }
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Video.js
+            player = videojs('laliga-player', {
+                autoplay: true,
+                controls: true,
+                responsive: true,
+                fluid: true,
+                liveui: true,
+                html5: {
+                    vhs: {
+                        overrideNative: true
+                    },
+                    nativeAudioTracks: false,
+                    nativeVideoTracks: false
+                }
+            });
 
-        // Initialize Video.js Player
-        const player = videojs('laliga-player', {
-            autoplay: false,
-            controls: true,
-            responsive: true,
-            fluid: false
+            // Handle Error Event
+            player.on('error', () => {
+                showNotice("Failed to connect to stream. The broadcast source may be offline or restricted.");
+            });
+
+            // Handle Ready Event
+            player.ready(() => {
+                loadChannel(0);
+            });
+
+            // Channel Selector Listener
+            const channelSelect = document.getElementById('channelSelect');
+            channelSelect.addEventListener('change', (e) => {
+                const index = parseInt(e.target.value, 10);
+                switchChannel(index);
+            });
+
+            // Quick Switch Cards Listeners
+            const cards = document.querySelectorAll('.channel-card');
+            cards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const idx = parseInt(card.getAttribute('data-channel-idx'), 10);
+                    switchChannel(idx);
+                });
+            });
+
+            // Reload Button
+            document.getElementById('reloadBtn').addEventListener('click', () => {
+                loadChannel(activeChannelIndex);
+            });
+
+            // Retry Button in Notice Box
+            document.getElementById('retryBtn').addEventListener('click', () => {
+                hideNotice();
+                loadChannel(activeChannelIndex);
+            });
+
+            // Fullscreen Button
+            document.getElementById('fullscreenToggle').addEventListener('click', () => {
+                if (player.isFullscreen()) {
+                    player.exitFullscreen();
+                } else {
+                    player.requestFullscreen();
+                }
+            });
         });
 
-        // Channel Switch Function
-        function switchChannel(streamUrl) {
-            const selectElem = document.getElementById('channelSelect');
-            const selectedText = selectElem.options[selectElem.selectedIndex].text;
+        function switchChannel(index) {
+            if (index < 0 || index >= channels.length) return;
+            activeChannelIndex = index;
             
-            // Update Title
-            document.getElementById('channel-title').innerHTML = `<i class="fa-solid fa-tower-broadcast" style="color: var(--primary-accent);"></i> ${selectedText}`;
-            
-            // Change Video Source
+            // Sync Dropdown
+            document.getElementById('channelSelect').value = index;
+
+            // Update UI components
+            updateActiveCardUI(index);
+            loadChannel(index);
+        }
+
+        function loadChannel(index) {
+            hideNotice();
+            const channel = channels[index];
+
+            // Update Labels
+            document.getElementById('currentChannelDisplay').textContent = channel.name;
+            document.getElementById('streamTitleTag').textContent = channel.shortName;
+
+            // Load Video.js Source
+            player.pause();
             player.src({
-                src: streamUrl,
+                src: channel.url,
                 type: 'application/x-mpegURL'
             });
-            player.play();
+
+            player.load();
+            
+            // Attempt autoplay
+            const playPromise = player.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(() => {
+                    // Autoplay was prevented or source failed
+                    console.log('Autoplay prevented or pending user interaction.');
+                });
+            }
+        }
+
+        function updateActiveCardUI(activeIndex) {
+            const cards = document.querySelectorAll('.channel-card');
+            cards.forEach((card, idx) => {
+                const indicator = card.querySelector('.card-active-indicator');
+                if (idx === activeIndex) {
+                    card.classList.add('border-laligaRed/60', 'bg-slate-800/50');
+                    card.classList.remove('border-gray-800', 'bg-darkCard');
+                    if (indicator) indicator.classList.remove('hidden');
+                } else {
+                    card.classList.remove('border-laligaRed/60', 'bg-slate-800/50');
+                    card.classList.add('border-gray-800', 'bg-darkCard');
+                    if (indicator) indicator.classList.add('hidden');
+                }
+            });
+        }
+
+        function showNotice(msg) {
+            const notice = document.getElementById('playerNotice');
+            const noticeText = document.getElementById('noticeText');
+            if (noticeText) noticeText.textContent = msg;
+            if (notice) notice.classList.remove('hidden');
+        }
+
+        function hideNotice() {
+            const notice = document.getElementById('playerNotice');
+            if (notice) notice.classList.add('hidden');
         }
     </script>
-
 </body>
 </html>
