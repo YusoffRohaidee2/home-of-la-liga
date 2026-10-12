@@ -170,16 +170,17 @@
                 </div>
                 <div>
                     <label for="channelSelect" class="block text-xs font-medium text-gray-400 uppercase tracking-wider">Select Broadcast Channel</label>
-                    <span id="currentChannelDisplay" class="text-sm font-semibold text-white">beIN Sports 1 Arabia</span>
+                    <span id="currentChannelDisplay" class="text-sm font-semibold text-white">T Sports</span>
                 </div>
             </div>
 
             <!-- Channel Dropdown Selector -->
             <div class="relative min-w-[260px] sm:w-80">
                 <select id="channelSelect" class="w-full bg-slate-900 text-white font-medium text-sm rounded-lg border border-gray-700 hover:border-laligaRed focus:border-laligaRed focus:ring-1 focus:ring-laligaRed p-3 pr-10 appearance-none cursor-pointer transition-all outline-none">
-                    <option value="0">1. beIN Sports 1 Arabia</option>
-                    <option value="1">2. beIN Sports 2 Arabia</option>
-                    <option value="2">3. beIN Sports 3 Arabia</option>
+                    <option value="0">1. T Sports</option>
+                    <option value="1">2. beIN Sports 1 Arabia</option>
+                    <option value="2">3. beIN Sports 2 Arabia</option>
+                    <option value="3">4. beIN Sports 3 Arabia</option>
                 </select>
                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-laligaRed">
                     <i class="fa-solid fa-chevron-down text-sm"></i>
@@ -197,7 +198,7 @@
                         LIVE
                     </span>
                     <span id="streamTitleTag" class="text-xs font-semibold text-gray-200 bg-slate-900/80 backdrop-blur-md px-3 py-1 rounded border border-gray-700/50 pointer-events-auto">
-                        beIN 1
+                        T Sports
                     </span>
                 </div>
 
@@ -243,10 +244,10 @@
                 <h2 class="text-sm font-semibold text-gray-400 uppercase tracking-wider flex items-center gap-2">
                     <i class="fa-solid fa-bolt text-laligaRed"></i> Quick Channel Switcher
                 </h2>
-                <span class="text-xs text-gray-500">3 Streams Available</span>
+                <span class="text-xs text-gray-500">4 Streams Available</span>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 
                 <!-- Channel Card 0 -->
                 <button data-channel-idx="0" class="channel-card group text-left bg-darkCard border border-laligaRed/60 bg-slate-800/50 p-4 rounded-xl transition-all duration-200 relative overflow-hidden shadow-lg">
@@ -255,7 +256,7 @@
                         <span class="text-xs font-bold text-laligaRed uppercase tracking-wider">Channel 01</span>
                         <span class="text-[10px] bg-red-950/60 text-red-400 border border-red-800/40 px-2 py-0.5 rounded font-mono">PRIMARY</span>
                     </div>
-                    <h3 class="font-bold text-white text-base group-hover:text-laligaRed transition">beIN Sports 1 Arabia</h3>
+                    <h3 class="font-bold text-white text-base group-hover:text-laligaRed transition">T Sports</h3>
                     <p class="text-xs text-gray-400 mt-1 truncate">m3u8 Direct Stream</p>
                 </button>
 
@@ -264,9 +265,9 @@
                     <div class="absolute top-0 right-0 w-2 h-full bg-laligaRed card-active-indicator hidden"></div>
                     <div class="flex items-center justify-between mb-2">
                         <span class="text-xs font-bold text-laligaRed uppercase tracking-wider">Channel 02</span>
-                        <span class="text-[10px] bg-slate-800 text-gray-300 border border-gray-700 px-2 py-0.5 rounded font-mono">BACKUP</span>
+                        <span class="text-[10px] bg-slate-800 text-gray-300 border border-gray-700 px-2 py-0.5 rounded font-mono">beIN 1</span>
                     </div>
-                    <h3 class="font-bold text-white text-base group-hover:text-laligaRed transition">beIN Sports 2 Arabia</h3>
+                    <h3 class="font-bold text-white text-base group-hover:text-laligaRed transition">beIN Sports 1</h3>
                     <p class="text-xs text-gray-400 mt-1 truncate">m3u8 Direct Stream</p>
                 </button>
 
@@ -275,9 +276,20 @@
                     <div class="absolute top-0 right-0 w-2 h-full bg-laligaRed card-active-indicator hidden"></div>
                     <div class="flex items-center justify-between mb-2">
                         <span class="text-xs font-bold text-laligaRed uppercase tracking-wider">Channel 03</span>
-                        <span class="text-[10px] bg-slate-800 text-gray-300 border border-gray-700 px-2 py-0.5 rounded font-mono">BACKUP</span>
+                        <span class="text-[10px] bg-slate-800 text-gray-300 border border-gray-700 px-2 py-0.5 rounded font-mono">beIN 2</span>
                     </div>
-                    <h3 class="font-bold text-white text-base group-hover:text-laligaRed transition">beIN Sports 3 Arabia</h3>
+                    <h3 class="font-bold text-white text-base group-hover:text-laligaRed transition">beIN Sports 2</h3>
+                    <p class="text-xs text-gray-400 mt-1 truncate">m3u8 Direct Stream</p>
+                </button>
+
+                <!-- Channel Card 3 -->
+                <button data-channel-idx="3" class="channel-card group text-left bg-darkCard border border-gray-800 p-4 rounded-xl transition-all duration-200 relative overflow-hidden shadow-lg hover:bg-slate-800">
+                    <div class="absolute top-0 right-0 w-2 h-full bg-laligaRed card-active-indicator hidden"></div>
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-bold text-laligaRed uppercase tracking-wider">Channel 04</span>
+                        <span class="text-[10px] bg-slate-800 text-gray-300 border border-gray-700 px-2 py-0.5 rounded font-mono">beIN 3</span>
+                    </div>
+                    <h3 class="font-bold text-white text-base group-hover:text-laligaRed transition">beIN Sports 3</h3>
                     <p class="text-xs text-gray-400 mt-1 truncate">m3u8 Direct Stream</p>
                 </button>
 
@@ -318,24 +330,31 @@
         const channels = [
             {
                 id: 0,
-                name: "beIN Sports 1 Arabia",
-                shortName: "beIN 1",
-                url: "https://cp11.adabmedia.com/hls2/bein1.m3u8",
+                name: "T Sports",
+                shortName: "T Sports",
+                url: "https://footfytv.pro/proxy/direct?url=http://livetv.akr4m.com:8080/bdtv/restrem/2.m3u8",
                 badge: "PRIMARY"
             },
             {
                 id: 1,
-                name: "beIN Sports 2 Arabia",
-                shortName: "beIN 2",
-                url: "https://cp11.adabmedia.com/hls2/bein2.m3u8",
-                badge: "BACKUP"
+                name: "beIN Sports 1 Arabia",
+                shortName: "beIN 1",
+                url: "https://cp11.adabmedia.com/hls2/bein1.m3u8",
+                badge: "beIN 1"
             },
             {
                 id: 2,
+                name: "beIN Sports 2 Arabia",
+                shortName: "beIN 2",
+                url: "https://cp11.adabmedia.com/hls2/bein2.m3u8",
+                badge: "beIN 2"
+            },
+            {
+                id: 3,
                 name: "beIN Sports 3 Arabia",
                 shortName: "beIN 3",
                 url: "https://cp11.adabmedia.com/hls2/bein3.m3u8",
-                badge: "BACKUP"
+                badge: "beIN 3"
             }
         ];
 
