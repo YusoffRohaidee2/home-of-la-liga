@@ -178,9 +178,6 @@
             <div class="relative min-w-[260px] sm:w-80">
                 <select id="channelSelect" class="w-full bg-slate-900 text-white font-medium text-sm rounded-lg border border-gray-700 hover:border-laligaRed focus:border-laligaRed focus:ring-1 focus:ring-laligaRed p-3 pr-10 appearance-none cursor-pointer transition-all outline-none">
                     <option value="0">1. T Sports</option>
-                    <option value="1">2. beIN Sports 1 Arabia</option>
-                    <option value="2">3. beIN Sports 2 Arabia</option>
-                    <option value="3">4. beIN Sports 3 Arabia</option>
                 </select>
                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-laligaRed">
                     <i class="fa-solid fa-chevron-down text-sm"></i>
@@ -271,28 +268,6 @@
                     <p class="text-xs text-gray-400 mt-1 truncate">m3u8 Direct Stream</p>
                 </button>
 
-                <!-- Channel Card 2 -->
-                <button data-channel-idx="2" class="channel-card group text-left bg-darkCard border border-gray-800 p-4 rounded-xl transition-all duration-200 relative overflow-hidden shadow-lg hover:bg-slate-800">
-                    <div class="absolute top-0 right-0 w-2 h-full bg-laligaRed card-active-indicator hidden"></div>
-                    <div class="flex items-center justify-between mb-2">
-                        <span class="text-xs font-bold text-laligaRed uppercase tracking-wider">Channel 03</span>
-                        <span class="text-[10px] bg-slate-800 text-gray-300 border border-gray-700 px-2 py-0.5 rounded font-mono">beIN 2</span>
-                    </div>
-                    <h3 class="font-bold text-white text-base group-hover:text-laligaRed transition">beIN Sports 2</h3>
-                    <p class="text-xs text-gray-400 mt-1 truncate">m3u8 Direct Stream</p>
-                </button>
-
-                <!-- Channel Card 3 -->
-                <button data-channel-idx="3" class="channel-card group text-left bg-darkCard border border-gray-800 p-4 rounded-xl transition-all duration-200 relative overflow-hidden shadow-lg hover:bg-slate-800">
-                    <div class="absolute top-0 right-0 w-2 h-full bg-laligaRed card-active-indicator hidden"></div>
-                    <div class="flex items-center justify-between mb-2">
-                        <span class="text-xs font-bold text-laligaRed uppercase tracking-wider">Channel 04</span>
-                        <span class="text-[10px] bg-slate-800 text-gray-300 border border-gray-700 px-2 py-0.5 rounded font-mono">beIN 3</span>
-                    </div>
-                    <h3 class="font-bold text-white text-base group-hover:text-laligaRed transition">beIN Sports 3</h3>
-                    <p class="text-xs text-gray-400 mt-1 truncate">m3u8 Direct Stream</p>
-                </button>
-
             </div>
         </section>
 
@@ -332,7 +307,7 @@
                 id: 0,
                 name: "T Sports",
                 shortName: "T Sports",
-                url: "https://footfytv.pro/proxy/direct?url=http://livetv.akr4m.com:8080/bdtv/restrem/2.m3u8",
+                url: "https://footfytv.pro/proxy/direct?url=http://103.185.24.134:3001/TSportsHD/index.m3u8",
                 badge: "PRIMARY"
             },
             {
@@ -341,20 +316,6 @@
                 shortName: "beIN 1",
                 url: "https://cp11.adabmedia.com/hls2/bein1.m3u8",
                 badge: "beIN 1"
-            },
-            {
-                id: 2,
-                name: "beIN Sports 2 Arabia",
-                shortName: "beIN 2",
-                url: "https://cp11.adabmedia.com/hls2/bein2.m3u8",
-                badge: "beIN 2"
-            },
-            {
-                id: 3,
-                name: "beIN Sports 3 Arabia",
-                shortName: "beIN 3",
-                url: "https://cp11.adabmedia.com/hls2/bein3.m3u8",
-                badge: "beIN 3"
             }
         ];
 
