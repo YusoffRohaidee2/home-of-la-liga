@@ -156,7 +156,7 @@
                 </div>
                 <div>
                     <label for="channelSelect" class="block text-[10px] font-tech text-gray-400 uppercase tracking-widest">Channel Stream</label>
-                    <span id="currentChannelDisplay" class="text-sm font-bold text-white tracking-wide">T-Sports</span>
+                    <span id="currentChannelDisplay" class="text-sm font-bold text-white tracking-wide">ESPN2 USA</span>
                 </div>
             </div>
 
@@ -179,7 +179,7 @@
                         HLS HD
                     </span>
                     <span id="streamTitleTag" class="text-xs font-semibold text-gray-200">
-                        T-Sports
+                        ESPN2 USA
                     </span>
                 </div>
                 <button id="reloadBtn" class="text-gray-400 hover:text-white bg-slate-900 px-2.5 py-1 rounded-lg text-xs border border-gray-800 transition flex items-center gap-1.5" title="Reload Stream">
@@ -221,63 +221,53 @@
         const channels = [
             {
                 id: 0,
-                name: "T-Sports",
-                url: "https://allinonereborn2.online/livtest3/stream_proxy.php?url=https://tvsen5.aynaott.com/kP9vX2mZ7qL5wN3t/index.m3u8"
+                name: "ESPN2 USA",
+                url: "https://tvsen7.aynascope.net/espn2/index.m3u8"
             },
             {
                 id: 1,
-                name: "ESPN2 USA",
-                url: "https://allinonereborn2.online/livtest3/stream_proxy.php?url=http://85.237.89.160:9590/usa-s/ESPN-2-HD/index.m3u8"
+                name: "Z'Or TV",
+                url: "https://stream8.cinerama.uz/1016/index.m3u8"
             },
             {
                 id: 2,
+                name: "Belarus 5",
+                url: "https://ngtrk.dc.beltelecom.by/ngtrk/smil:belarus5.smil/playlist.m3u8"
+            },
+            {
+                id: 3,
                 name: "beIN Sports 1 Arabia",
                 url: "https://balance.footballii.ir/hls2/bein1.m3u8"
             },
             {
-                id: 3,
+                id: 4,
                 name: "beIN Sports 1 Arabia (Server 2)",
                 url: "https://cp11.adabmedia.com/hls2/bein1.m3u8"
             },
             {
-                id: 4,
-                name: "beIN Sports 1 Arabia (Server 3)",
-                url: "https://allinonereborn2.online/livtest3/stream_proxy.php?url=http://dashcloudflare.ddns.net/live/ar/qa/bein/bein_sport_1_hd/index.m3u8"
-            },
-            {
                 id: 5,
-                name: "beIN Sports 2 Arabia",
-                url: "https://allinonereborn2.online/livtest3/stream_proxy.php?url=http://dashcloudflare.ddns.net/live/ar/qa/bein/bein_sport_2_hd/index.m3u8"
+                name: "beIN Sports 1 Arabia (Server 3)",
+                url: "https://tv.alziocell.my.id/proxy.php/proxy.php?url=http://dashcloudflare.ddns.net/live/ar/qa/bein/bein_sport_1_hd/index.m3u8"
             },
             {
                 id: 6,
-                name: "beIN Sports 4 Arabia",
-                url: "https://allinonereborn2.online/livtest3/stream_proxy.php?url=http://dashcloudflare.ddns.net/live/ar/qa/bein/bein_sport_4_hd/index.m3u8"
+                name: "beIN Sports 2 Arabia",
+                url: "https://tv.alziocell.my.id/proxy.php/proxy.php?url=http://dashcloudflare.ddns.net/live/ar/qa/bein/bein_sport_2_hd/index.m3u8"
             },
             {
                 id: 7,
-                name: "IRIB Varzesh",
-                url: "https://cp11.adabmedia.com/hls2/varzeshtest.m3u8"
+                name: "beIN Sports 3 Arabia",
+                url: "https://tv.alziocell.my.id/proxy.php/proxy.php?url=http://dashcloudflare.ddns.net/live/ar/qa/bein/bein_sport_3_hd/index.m3u8"
             },
             {
                 id: 8,
-                name: "IRIB TV3",
-                url: "https://cp11.adabmedia.com/hls2/tv3.m3u8"
+                name: "beIN Sports 5 Arabia",
+                url: "https://tv.alziocell.my.id/proxy.php/proxy.php?url=http://dashcloudflare.ddns.net/live/ar/qa/bein/bein_sport_5_hd/index.m3u8"
             },
             {
                 id: 9,
-                name: "IRIB TV3 (Server 2)",
-                url: "https://cp11.adabmedia.com/hls2/tv3test.m3u8"
-            },
-            {
-                id: 10,
-                name: "Setanta Sports 2 Ukraine",
-                url: "https://allinonereborn2.online/livtest3/stream_proxy.php?url=http://stream.mcquack.net/235/index.m3u8"
-            },
-            {
-                id: 11,
-                name: "Belarus 5",
-                url: "https://ngtrk.dc.beltelecom.by/ngtrk/smil:belarus5.smil/playlist.m3u8"
+                name: "beIN Sports 6 Arabia",
+                url: "https://tv.alziocell.my.id/proxy.php/proxy.php?url=http://dashcloudflare.ddns.net/live/ar/qa/bein/bein_sport_6_hd/index.m3u8"
             }
         ];
 
